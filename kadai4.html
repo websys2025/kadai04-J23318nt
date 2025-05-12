@@ -48,6 +48,11 @@
                     if (this.stock >= 1) { 
                         console.log("商品番号: "+this.id+", 商品名: "+this.name+"を購入します。");
                         // 課題4-2. ここにコードを書く
+                         // 課題4-3. ここにコードを書く
+                         this.stock--;                                                // 在庫を1つ減らす
+                    const stockCell = document.getElementById("stock" + this.id);     // 在庫セルを特定
+                    stockCell.textContent = this.stock;                               // セルの値を更新
+                    console.log("残りは" + this.stock + "個です。");
                         // 購入による商品の在庫削減処理
                         
                         // 課題4-3. ここにコードを書く
@@ -66,6 +71,7 @@
 
             // 課題4-1. ここにコード書く
             // 商品オブジェクトの生成
+            
 
             // 課題4-2. ここにコードを書く
             // 商品表の作成

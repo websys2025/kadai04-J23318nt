@@ -79,15 +79,14 @@
             `;
             itemArea.appendChild(row);
         }
-
-        // ボタンのクリック処理設定（課題4-3）
+//ボタンクリックの設定
+        //（課題4-3）
         for (let i = 0; i < item_list.length; i++) {
             document.getElementById("button" + item_list[i].id).onclick = () => {
                 item_list[i].buyItem();
             };
         }
 
-        // 商品一覧の表示（課題4-1）
         Item.showItemList(item_list);
 
     </script>

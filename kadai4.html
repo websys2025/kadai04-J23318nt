@@ -10,7 +10,7 @@
 
     <script>
         // 商品一覧を記録する連想配列の配列
-        const items = [
+        const items =  [
             { id: 1, name: "緑茶", price: 140, stock: 5 },
             { id: 2, name: "水", price: 100, stock: 14 },
             { id: 3, name: "オレンジジュース", price: 150, stock: 7 },
@@ -32,73 +32,67 @@
                 Item.number++;
             }
 
-            // 商品一覧の表示関数（kadai4-1）
+            // 商品一覧の表示関数（課題4-1）
             static showItemList(list) {
-                for (let item of list) {
-                    console.log(`id: ${item.id}, name: ${item.name}, ${item.price}円, 残り${item.stock}個`);
+                for (let i = 0; i < list.length; i++) {
+                    const item = list[i];
+                    console.log("商品番号: " + item.id + ", 商品名: " + item.name + ", 金額: " + item.price + ", 在庫数: " + item.stock);
                 }
-                console.log("商品は以下の" + list.length + "種類です。");
-                for (let item of list) {
-                    console.log(`商品番号: ${item.id}, 商品名: ${item.name}, 金額: ${item.price}, 在庫数: ${item.stock}`);
-                }
+                console.log("商品は以下の" + (Item.number - 1) + "種類です。");
                 console.log(""); // 空行
             }
 
-            // 商品購入の関数（kadai4-2, 4-3）
+            // 商品購入の関数（課題4-2・4-3）
             buyItem() {
                 if (this.stock >= 1) {
-                    console.log(`商品番号: ${this.id}, 商品名: ${this.name}を購入します。`);
-                    this.stock--;
-                    const stockCell = document.getElementById("stock" + this.id);
-                    stockCell.textContent = this.stock;
-                    console.log(`残りは${this.stock}個です。`);
+                    console.log("商品番号: " + this.id + ", 商品名: " + this.name + "を購入します。");
+                    this.stock--; // 在庫を1つ減らす
+                    const stockCell = document.getElementById("stock" + this.id); // 在庫セルを特定
+                    stockCell.textContent = this.stock; // セルの値を更新
+                    console.log("残りは" + this.stock + "個です。");
                 } else {
-                    console.log(`${this.name}は商品の在庫がないため購入できません。`);
+                    console.log(this.name + "は商品の在庫がないため購入できません。");
                 }
             }
         }
 
+        // 商品テーブルのエレメント抽出
         const itemArea = document.getElementById("item_area");
         itemArea.innerHTML += "<tr><th>商品名</th><th>金額</th><th>在庫数</th><th>購入</th></tr>";
 
+        // 商品オブジェクトの生成（課題4-1）
         const item_list = new Array(items.length);
-        const btn = new Array(items.length);
-
-        // 商品オブジェクトの生成（kadai4-1）
         for (let i = 0; i < items.length; i++) {
-            const obj = items[i];
-            item_list[i] = new Item(obj.name, obj.price, obj.stock);
+            item_list[i] = new Item(items[i].name, items[i].price, items[i].stock);
         }
 
-        // 商品表の作成（kadai4-2）
+        // 商品表の作成（課題4-2）
         for (let i = 0; i < item_list.length; i++) {
             const item = item_list[i];
-            itemArea.innerHTML += `<tr>
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
                 <td>${item.name}</td>
                 <td>${item.price}</td>
                 <td id="stock${item.id}">${item.stock}</td>
                 <td><button id="button${item.id}">購入</button></td>
-            </tr>`;
+            `;
+            itemArea.appendChild(row);
         }
 
-        // ボタンクリック時の購入処理（kadai4-3）
+        // ボタンのクリック処理設定（課題4-3）
         for (let i = 0; i < item_list.length; i++) {
             document.getElementById("button" + item_list[i].id).onclick = () => {
                 item_list[i].buyItem();
             };
         }
 
-        // 商品リストを表示（kadai4-1）
+        // 商品一覧の表示（課題4-1）
         Item.showItemList(item_list);
-
-        // 例として実行（確認用：期待される出力例）
-        item_list[1].buyItem(); // 水
-        item_list[1].buyItem(); // 水
-        item_list[3].buyItem(); // リンゴジュース
-        item_list[4].buyItem(); // 炭酸水
-        item_list[4].buyItem(); // 炭酸水（在庫0でエラー）
 
     </script>
 </body>
 </html>
+
+
 
